@@ -1,7 +1,5 @@
-type Identifier = string;
-
 interface Entity {
-    id: Identifier;
+    id: string;
     createdAt: Date;
     updatedAt: Date;
     removedAt: Date | null;
@@ -14,4 +12,4 @@ interface PartSort {
 
 interface DocEntity extends Entity, PartSort {}
 
-export type { DocEntity, Identifier };
+export type { DocEntity };

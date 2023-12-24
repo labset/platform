@@ -38,8 +38,7 @@ class DocEntityWriteAccess<TEntity extends DocEntity>
         };
 
         await this.ddbDocClient.send(new PutCommand(params));
-        // TODO: handle error
-        return item as TEntity;
+        return item;
     }
 
     async removeOne(entity: Pick<TEntity, 'sort'>): Promise<void> {
@@ -69,9 +68,7 @@ class DocEntityWriteAccess<TEntity extends DocEntity>
         };
 
         await this.ddbDocClient.send(new BatchWriteCommand(params));
-        // TODO: handle error
-
-        return items as TEntity[];
+        return items;
     }
 
     private mapEntityToItem(entity: SaveDocEntityInput<TEntity>): TEntity {
