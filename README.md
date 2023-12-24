@@ -1,6 +1,6 @@
-## typescript-monorepo
+## labset-platform
 
-Monorepo template for TypeScript projects
+Monorepo of labset platform, built with TypeScript
 
 ### environment
 

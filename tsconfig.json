@@ -8,9 +8,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist/modules",
-    "paths": {
-      "@monorepo/*": ["modules/*"]
-    },
     "resolveJsonModule": true,
     "rootDir": "modules",
     "skipLibCheck": true,

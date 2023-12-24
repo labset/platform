@@ -21,13 +21,6 @@ module.exports = {
         node: true,
     },
     rules: {
-        '@labset-eslint/import-modules': [
-            'error',
-            {
-                alias: '@monorepo',
-                modulesDir: 'modules',
-            },
-        ],
         '@typescript-eslint/no-unused-vars': [
             'error',
             {

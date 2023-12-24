@@ -1,5 +1,5 @@
 {
-  "name": "@monorepo-be/domain-access",
+  "name": "@labset/platform-backend-db",
   "version": "1.0.0",
   "private": true,
   "main": "index.ts"
