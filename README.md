@@ -1,3 +1,7 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=viqueen_labset-platform&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=viqueen_labset-platform)
+![Known Vulnerabilities](https://snyk.io/test/github/viqueen/labset-platform/badge.svg)
+
+
 ## labset-platform
 
 Monorepo of labset platform, built with TypeScript
