@@ -2,5 +2,6 @@
 .env
 .idea/
 dist/
+coverage/
 modules/_build/eslint-plugin/**/*.js
 node_modules/
