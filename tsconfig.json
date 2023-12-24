@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
     "lib": ["dom", "es6"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist/modules",
+    "paths": {
+      "@labset/*": ["modules/*"]
+    },
     "resolveJsonModule": true,
-    "rootDir": "modules",
-    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "ES2017"
   },
-  "include": ["modules"],
+  "include": ["modules/"],
   "exclude": [
+    "node_modules/",
     "modules/**/*.test.ts",
     "modules/**/*.spec.ts",
     "modules/**/*.test.tsx",

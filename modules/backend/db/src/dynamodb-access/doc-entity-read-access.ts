@@ -40,10 +40,13 @@ class DocEntityReadAccess<TEntity extends DocEntity>
         const condition = Object.keys(input)
             .map((key) => `${key} = :${key}`)
             .join(' AND ');
-        const attributes = Object.entries(input).reduce((data, entry) => {
-            data[`:${entry[0]}`] = entry[1];
-            return data;
-        }, {} as Record<string, unknown>);
+        const attributes = Object.entries(input).reduce(
+            (data, entry) => {
+                data[`:${entry[0]}`] = entry[1];
+                return data;
+            },
+            {} as Record<string, unknown>
+        );
         const params: QueryCommandInput = {
             TableName: this.table.name,
             KeyConditionExpression: condition,

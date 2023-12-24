@@ -12,10 +12,10 @@
     "format:check": "prettier --check .",
     "format": "prettier --check --write ."
   },
-  "main": "dist/modules/backend/db/index.js",
-  "types": "dist/modules/backend/db/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "dist/modules/backend/db"
+    "dist"
   ],
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.478.0",
