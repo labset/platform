@@ -1,4 +1,4 @@
-name: labset-platform Build and Test
+name: labset-platform Lint and Test
 on:
   push:
     branches:
@@ -15,7 +15,6 @@ jobs:
           node-version: 18
           cache: "npm"
       - run: yarn
-      - run: yarn build
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test --passWithNoTests
