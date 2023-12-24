@@ -34,7 +34,10 @@ describe('dynamodb-access', () => {
     it('read-write: saves one item', async () => {
         const one = await access.writer.saveOne({
             sort: 'one',
-            summary: 'one'
+            summary: 'one',
+            info: {
+                author: 'me'
+            }
         });
         const found = await access.reader.findBySort({ sort: one.sort });
         expect(found).toEqual(one);
@@ -77,6 +80,7 @@ describe('dynamodb-access', () => {
 
 interface Task extends DocEntity {
     summary: string;
+    info: Record<string, string>;
 }
 
 const taskTable: IDocEntityTable = { name: 'task', part: 'GLOBAL' };

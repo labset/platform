@@ -57,7 +57,7 @@ class DocEntityReadAccess<TEntity extends DocEntity>
             new QueryCommand(params)
         );
         if (Items) {
-            return Items.map(this.data.unmarshall) as TEntity[];
+            return Items.map((item) => this.data.unmarshall(item)) as TEntity[];
         }
         return [];
     }
