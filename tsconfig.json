@@ -16,7 +16,6 @@
   },
   "include": ["modules/"],
   "exclude": [
-    "node_modules/",
     "modules/**/*.test.ts",
     "modules/**/*.spec.ts",
     "modules/**/*.test.tsx",

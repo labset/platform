@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 export default async () => {
-    // ignore
+    const { stopDb } = await import('jest-dynalite');
+    await stopDb();
 };

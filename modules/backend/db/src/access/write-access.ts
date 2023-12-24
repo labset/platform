@@ -2,7 +2,8 @@ import { DocEntity } from './entity';
 
 type SaveDocEntityInput<TEntity extends DocEntity> = Partial<
     Omit<TEntity, 'id' | 'part' | 'updatedAt' | 'removedAt'>
->;
+> &
+    Required<Pick<TEntity, 'sort'>>;
 
 interface IDocEntityWriteAccess<TEntity extends DocEntity> {
     saveOne(input: SaveDocEntityInput<TEntity>): Promise<TEntity>;
