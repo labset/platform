@@ -59,7 +59,7 @@ class DocEntityWriteAccess<TEntity extends DocEntity>
         const items = entities.map((entity) => this.mapEntityToItem(entity));
         const putRequestItems = items.map((item) => ({
             PutRequest: {
-                Item: { ...item }
+                Item: this.data.marshall({ ...item })
             }
         }));
         const params: BatchWriteCommandInput = {

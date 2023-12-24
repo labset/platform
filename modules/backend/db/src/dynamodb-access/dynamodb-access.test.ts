@@ -1,5 +1,3 @@
-import { before } from 'node:test';
-
 import { DocEntity } from '../access';
 
 import { DynamoDbClients } from './clients';
@@ -33,7 +31,7 @@ describe('dynamodb-access', () => {
         await clients.rollback();
     });
 
-    it('saves one item', async () => {
+    it('read-write: saves one item', async () => {
         const one = await access.writer.saveOne({
             sort: 'one',
             summary: 'one'
@@ -50,7 +48,7 @@ describe('dynamodb-access', () => {
         expect(listOfOne).toContainEqual(found);
     });
 
-    it('saves many items', async () => {
+    it('read-write: saves many items and removes one', async () => {
         const one = { sort: 'one', summary: 'one' };
         const two = { sort: 'two', summary: 'two' };
 
@@ -60,6 +58,20 @@ describe('dynamodb-access', () => {
         expect(all).toHaveLength(2);
         expect(all).toContainEqual(itemOne);
         expect(all).toContainEqual(itemTwo);
+
+        await access.writer.removeOne(one);
+
+        const notFound = await access.reader.findBySort(one);
+        expect(notFound).toBeNull();
+
+        const listOfOne = await access.reader.query({});
+        expect(listOfOne).toHaveLength(1);
+        expect(listOfOne).toContainEqual(itemTwo);
+    });
+
+    it('read: finds nothing when store is empty', async () => {
+        const none = await access.reader.query({});
+        expect(none).toHaveLength(0);
     });
 });
 
