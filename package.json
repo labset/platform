@@ -34,9 +34,5 @@
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.478.0",
-    "@aws-sdk/lib-dynamodb": "^3.478.0"
   }
 }

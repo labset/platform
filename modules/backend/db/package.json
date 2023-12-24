@@ -2,5 +2,23 @@
   "name": "@labset/platform-backend-db",
   "version": "1.0.0",
   "private": true,
-  "main": "index.ts"
+  "license": "Apache-2.0",
+  "author": "Hasnae R. <>",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "format:check": "prettier --check .",
+    "format": "prettier --check --write ."
+  },
+  "main": "dist/modules/backend/db/index.js",
+  "types": "dist/modules/backend/db/index.d.ts",
+  "files": [
+    "dist/modules/backend/db"
+  ],
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.478.0",
+    "@aws-sdk/lib-dynamodb": "^3.478.0"
+  }
 }
