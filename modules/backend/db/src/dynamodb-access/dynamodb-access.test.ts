@@ -1,3 +1,5 @@
+import { before } from 'node:test';
+
 import { DocEntity } from '../access';
 
 import { DynamoDbClients } from './clients';
@@ -10,32 +12,55 @@ import { IDocEntityTable } from './types';
 describe('dynamodb-access', () => {
     let clients: DynamoDbClients;
     let access: TaskDocEntityAccess;
+
     beforeAll(async () => {
         const migrations = [new CreateTableMigration(taskTable)];
         clients = new DynamoDbClients(migrations, {
             region: 'local',
             endpoint: process.env.MOCK_DYNAMODB_ENDPOINT ?? 'oops'
         });
-        await clients.upgrade();
+
         access = new TaskDocEntityAccess(clients);
     });
     afterAll(() => {
         clients.destroy();
     });
 
+    beforeEach(async () => {
+        await clients.upgrade();
+    });
+    afterEach(async () => {
+        await clients.rollback();
+    });
+
     it('saves one item', async () => {
-        const item = await access.writer.saveOne({
+        const one = await access.writer.saveOne({
             sort: 'one',
             summary: 'one'
         });
-        const found = await access.reader.findBySort({ sort: item.sort });
-        expect(found).toEqual(item);
+        const found = await access.reader.findBySort({ sort: one.sort });
+        expect(found).toEqual(one);
+
         const all = await access.reader.query({});
         expect(all).toHaveLength(1);
         expect(all).toContainEqual(found);
+
+        const listOfOne = await access.reader.query({ sort: one.sort });
+        expect(listOfOne).toHaveLength(1);
+        expect(listOfOne).toContainEqual(found);
     });
 
-    it('saves many items', () => {});
+    it('saves many items', async () => {
+        const one = { sort: 'one', summary: 'one' };
+        const two = { sort: 'two', summary: 'two' };
+
+        const [itemOne, itemTwo] = await access.writer.saveMany([one, two]);
+
+        const all = await access.reader.query({});
+        expect(all).toHaveLength(2);
+        expect(all).toContainEqual(itemOne);
+        expect(all).toContainEqual(itemTwo);
+    });
 });
 
 interface Task extends DocEntity {

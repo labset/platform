@@ -10,6 +10,7 @@ interface IDynamoDbClients {
     ddbData: () => IDynamoDbData;
     destroy: () => Promise<void>;
     upgrade: () => Promise<void>;
+    rollback: () => Promise<void>;
 }
 
 type DynamoDbClientConfig = { region: string; endpoint?: string };
@@ -77,6 +78,17 @@ class DynamoDbClients implements IDynamoDbClients {
                 continue;
             }
             await migration.up(ddbClient);
+        }
+    }
+
+    async rollback(): Promise<void> {
+        const ddbClient = this.ddb();
+        const data = await ddbClient.send(new ListTablesCommand({}));
+        const tableNames = data.TableNames ?? [];
+        for (const migration of this.migrations) {
+            if (tableNames.some((t) => t === migration.TableName)) {
+                await migration.down(ddbClient);
+            }
         }
     }
 }
