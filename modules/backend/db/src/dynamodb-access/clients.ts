@@ -1,4 +1,5 @@
 import { DynamoDBClient, ListTablesCommand } from '@aws-sdk/client-dynamodb';
+import type { TableDescription } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 
 import { DynamoDbData, IDynamoDbData } from './data';
@@ -9,8 +10,8 @@ interface IDynamoDbClients {
     ddbDoc: () => DynamoDBDocumentClient;
     ddbData: () => IDynamoDbData;
     destroy: () => Promise<void>;
-    upgrade: () => Promise<void>;
-    rollback: () => Promise<void>;
+    upgrade: () => Promise<TableDescription[]>;
+    rollback: () => Promise<TableDescription[]>;
 }
 
 type DynamoDbClientConfig = { region: string; endpoint?: string };
@@ -69,27 +70,37 @@ class DynamoDbClients implements IDynamoDbClients {
         this.ddbInstance?.destroy();
     }
 
-    async upgrade(): Promise<void> {
+    async upgrade(): Promise<TableDescription[]> {
         const ddbClient = this.ddb();
         const data = await ddbClient.send(new ListTablesCommand({}));
         const tableNames = data.TableNames ?? [];
+        const result: TableDescription[] = [];
         for (const migration of this.migrations) {
             if (tableNames.some((t) => t === migration.TableName)) {
                 continue;
             }
-            await migration.up(ddbClient);
+            const upgrades = await migration.up(ddbClient);
+            if (upgrades) {
+                result.push(upgrades);
+            }
         }
+        return result;
     }
 
-    async rollback(): Promise<void> {
+    async rollback(): Promise<TableDescription[]> {
         const ddbClient = this.ddb();
         const data = await ddbClient.send(new ListTablesCommand({}));
         const tableNames = data.TableNames ?? [];
+        const result: TableDescription[] = [];
         for (const migration of this.migrations) {
             if (tableNames.some((t) => t === migration.TableName)) {
-                await migration.down(ddbClient);
+                const downgrades = await migration.down(ddbClient);
+                if (downgrades) {
+                    result.push(downgrades);
+                }
             }
         }
+        return result;
     }
 }
 

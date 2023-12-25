@@ -20,15 +20,17 @@ describe('dynamodb-access', () => {
 
         access = new TaskDocEntityAccess(clients);
     });
-    afterAll(() => {
-        clients.destroy();
+    afterAll(async () => {
+        await clients.destroy();
     });
 
     beforeEach(async () => {
-        await clients.upgrade();
+        const upgrades = await clients.upgrade();
+        expect(upgrades).toHaveLength(1);
     });
     afterEach(async () => {
-        await clients.rollback();
+        const downgrades = await clients.rollback();
+        expect(downgrades).toHaveLength(1);
     });
 
     it('read-write: saves one item', async () => {

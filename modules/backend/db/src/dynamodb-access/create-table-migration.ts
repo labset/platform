@@ -18,7 +18,7 @@ class CreateTableMigration implements IDynamoDbMigration {
         this.TableName = table.name;
     }
 
-    async up(client: DynamoDBClient): Promise<TableDescription[]> {
+    async up(client: DynamoDBClient): Promise<TableDescription | undefined> {
         const params: CreateTableCommandInput = {
             TableName: this.TableName,
             AttributeDefinitions: [
@@ -37,17 +37,17 @@ class CreateTableMigration implements IDynamoDbMigration {
         const { TableDescription } = await client.send(
             new CreateTableCommand(params)
         );
-        return TableDescription ? [TableDescription] : [];
+        return TableDescription;
     }
 
-    async down(client: DynamoDBClient): Promise<TableDescription[]> {
+    async down(client: DynamoDBClient): Promise<TableDescription | undefined> {
         const params: DeleteTableCommandInput = {
             TableName: this.TableName
         };
         const { TableDescription } = await client.send(
             new DeleteTableCommand(params)
         );
-        return TableDescription ? [TableDescription] : [];
+        return TableDescription;
     }
 }
 
