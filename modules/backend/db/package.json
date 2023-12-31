@@ -1,6 +1,6 @@
 {
   "name": "@labset/platform-backend-db",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "Apache-2.0",
   "author": "Hasnae R. <>",
   "scripts": {
