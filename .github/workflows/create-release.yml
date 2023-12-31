@@ -33,3 +33,19 @@ jobs:
       - run: yarn workspace @labset/platform-backend-db publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  build-and-release-graphql-codegen:
+    needs: lint-and-test
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: yarn workspace @labset/platform-build-graphql-codegen build
+      - run: yarn workspace @labset/platform-build-graphql-codegen publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
