@@ -1,5 +1,5 @@
 {
-  "name": "@labset/platform-build-graphql-codegen",
+  "name": "@labset/platform-backend-middlewares",
   "version": "1.0.3",
   "license": "Apache-2.0",
   "author": "Hasnae R. <>",
@@ -16,13 +16,12 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
   "devDependencies": {
-    "@graphql-codegen/plugin-helpers": "^5.0.1",
-    "@graphql-tools/apollo-engine-loader": "^8.0.0",
-    "@graphql-tools/utils": "^10.0.12",
-    "graphql": "^16.8.1",
-    "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
-    "@graphql-codegen/typescript-resolvers": "^4.0.1"
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
   }
 }
