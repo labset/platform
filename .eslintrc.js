@@ -9,12 +9,13 @@ module.exports = {
             modules: true,
         },
     },
-    plugins: ['@typescript-eslint', 'import', '@labset-eslint'],
+    plugins: ['@typescript-eslint', 'import', 'react', '@labset-eslint'],
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:import/recommended',
+        'plugin:react/recommended',
     ],
     env: {
         browser: true,
@@ -50,6 +51,9 @@ module.exports = {
             node: {
                 extensions: ['.js', '.ts', '.tsx'],
             },
+        },
+        react: {
+            version: '18.2.0',
         },
     },
 };

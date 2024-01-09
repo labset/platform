@@ -1,6 +1,6 @@
 {
   "name": "@labset/platform-backend-middlewares",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "Apache-2.0",
   "author": "Hasnae R. <>",
   "scripts": {
