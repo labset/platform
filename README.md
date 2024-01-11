@@ -1,5 +1,4 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=viqueen_labset-platform&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=viqueen_labset-platform)
-![Known Vulnerabilities](https://snyk.io/test/github/viqueen/labset-platform/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=labset_platform&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=labset_platform)
 
 ## labset-platform
 
