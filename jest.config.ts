@@ -11,10 +11,10 @@ export default async (): Promise<Config> => {
         roots: ['<rootDir>/modules'],
         globalSetup: '<rootDir>/modules/_test/global-setup.ts',
         globalTeardown: '<rootDir>/modules/_test/global-teardown.ts',
-        testMatch: ['**/?(*.)+(spec|test).+(ts)'],
+        testMatch: ['**/?(*.)+(spec|test).+(ts|tsx)'],
         verbose: true,
         transform: {
-            '^.+\\.ts$': 'ts-jest'
+            '^.+\\.tsx?$': 'ts-jest'
         }
     };
 };
