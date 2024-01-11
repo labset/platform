@@ -15,6 +15,7 @@ jobs:
           node-version: 18
           cache: "npm"
       - run: yarn
+      - run: yarn workspaces run build
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test
