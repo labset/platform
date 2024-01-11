@@ -1,5 +1,5 @@
 {
-  "name": "@labset/platform-backend-middlewares",
+  "name": "@labset/platform-base-backend-middlewares",
   "version": "1.0.4",
   "license": "Apache-2.0",
   "author": "Hasnae R. <>",

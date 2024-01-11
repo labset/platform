@@ -19,7 +19,7 @@ jobs:
       - run: yarn lint
       - run: yarn test
 
-  build-and-release-backend-db:
+  base-backend-db:
     needs: lint-and-test
     runs-on: ubuntu-22.04
     steps:
@@ -30,12 +30,12 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn workspace @labset/platform-backend-db build
-      - run: yarn workspace @labset/platform-backend-db publish --access public
+      - run: yarn workspace @labset/platform-base-backend-db build
+      - run: yarn workspace @labset/platform-base-backend-db publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  build-and-release-graphql-codegen:
+  tools-graphql-codegen:
     needs: lint-and-test
     runs-on: ubuntu-22.04
     steps:
@@ -51,7 +51,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  build-and-release-backend-middlewares:
+  base-backend-middlewares:
     needs: lint-and-test
     runs-on: ubuntu-22.04
     steps:
@@ -62,7 +62,7 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn workspace @labset/platform-backend-middlewares build
-      - run: yarn workspace @labset/platform-backend-middlewares publish --access public
+      - run: yarn workspace @labset/platform-base-backend-middlewares build
+      - run: yarn workspace @labset/platform-base-backend-middlewares publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
