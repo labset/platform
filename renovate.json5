@@ -23,36 +23,24 @@
       matchUpdateTypes: ["digest", "patch", "minor", "major"],
     },
     {
-      "matchSourceUrlPrefixes": [
-        "https://github.com/apollographql/"
-      ],
+      matchSourceUrlPrefixes: ["https://github.com/apollographql/"],
       groupSlug: "apollo-graphql",
       addLabels: ["graphql"],
-      commitMessagePrefix: "[graphql-upgrades]"
+      commitMessagePrefix: "[graphql-upgrades]",
     },
     {
-      "matchPackageNames": [
-        "@types/eslint",
-        "babel-eslint"
-      ],
-      "matchPackagePrefixes": [
-        "@typescript-eslint/",
-        "eslint"
-      ],
+      matchPackageNames: ["@types/eslint", "babel-eslint"],
+      matchPackagePrefixes: ["@typescript-eslint/", "eslint"],
       groupSlug: "eslint",
       addLabels: ["eslint"],
-      commitMessagePrefix: "[eslint-upgrades]"
+      commitMessagePrefix: "[eslint-upgrades]",
     },
     {
-      "matchPackageNames": [
-        "@types/react"
-      ],
-      "matchPackagePrefixes": [
-        "react"
-      ],
+      matchPackageNames: ["@types/react"],
+      matchPackagePrefixes: ["react"],
       groupSlug: "react",
       addLabels: ["react"],
-      commitMessagePrefix: "[react-upgrades]"
-    }
-  ]
+      commitMessagePrefix: "[react-upgrades]",
+    },
+  ],
 }

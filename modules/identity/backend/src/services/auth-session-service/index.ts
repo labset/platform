@@ -1,4 +1,4 @@
-import {AuthSession, IIdentityAccess} from "../../db";
+import { AuthSession, IIdentityAccess } from '../../db';
 
 interface IAuthSessionService<TSessionPayload> {
     getSession(sessionId: string): Promise<AuthSession<TSessionPayload> | null>;

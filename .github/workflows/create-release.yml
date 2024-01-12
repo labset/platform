@@ -53,7 +53,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   release-identity-backend:
-    needs: [lint-and-test,release-core-backend]
+    needs: [lint-and-test, release-core-backend]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
