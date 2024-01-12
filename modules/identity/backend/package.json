@@ -1,0 +1,24 @@
+{
+  "name": "@labset/platform-identity-backend",
+  "version": "1.0.4",
+  "license": "Apache-2.0",
+  "author": "Hasnae R. <>",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "format:check": "prettier --check .",
+    "format": "prettier --check --write ."
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.490.0",
+    "@aws-sdk/lib-dynamodb": "^3.490.0",
+    "@labset/platform-core-backend": "^1.0.4"
+  }
+}
