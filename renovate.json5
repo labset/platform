@@ -23,9 +23,6 @@
       matchUpdateTypes: ["digest", "patch", "minor", "major"],
     },
   ],
-  major: {
-    bumpVersion: "major",
-  },
   minor: {
     bumpVersion: "minor",
   },
