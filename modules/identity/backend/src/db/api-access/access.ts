@@ -1,9 +1,10 @@
 import { IDocEntityAccess } from '@labset/platform-core-backend';
 
-import { AuthSession } from './entities';
+import { AuthIdentity, AuthSession } from './entities';
 
 interface IIdentityAccess<TSessionPayload> {
     authSession: IDocEntityAccess<AuthSession<TSessionPayload>>;
+    authIdentity: IDocEntityAccess<AuthIdentity>;
 }
 
 type entityNames = keyof IIdentityAccess<unknown>;

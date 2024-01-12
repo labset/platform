@@ -4,7 +4,11 @@ import { entityNames } from '../api-access';
 
 const tables: Record<entityNames, IDocEntityTable> = {
     authSession: {
-        name: `todo-item`,
+        name: `platform-auth-session`,
+        part: `GLOBAL`
+    },
+    authIdentity: {
+        name: `platform-auth-identity`,
         part: `GLOBAL`
     }
 };
