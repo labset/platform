@@ -4,6 +4,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { AuthIdentityProvider, GoogleAuthIdentity } from '../../db';
 
 import { AuthenticationEndpointProps } from './types';
+
 const googleAuthStrategy = async ({
     app,
     secrets,
@@ -19,23 +20,23 @@ const googleAuthStrategy = async ({
             scope: ['profile'],
             callbackURL: `${product.gatewayUrl}/auth/google/callback`
         },
-        async (_token, _refresh, profile, done) => {
+        (_token, _refresh, profile, done) => {
             const { id, _json } = profile;
-            const identity =
-                await services.authIdentity.getOrCreateIdentity<GoogleAuthIdentity>(
-                    {
-                        profileId: id,
-                        provider: AuthIdentityProvider.GOOGLE,
-                        profile: { ..._json }
-                    }
-                );
-            const { profileId, provider } = identity;
-            done(null, {
-                authIdentity: {
-                    provider,
-                    profileId
-                }
-            });
+            services.authIdentity
+                .getOrCreateIdentity<GoogleAuthIdentity>({
+                    profileId: id,
+                    provider: AuthIdentityProvider.GOOGLE,
+                    profile: { ..._json }
+                })
+                .then(({ provider, profileId }) => {
+                    done(null, {
+                        authIdentity: {
+                            provider,
+                            profileId
+                        }
+                    });
+                })
+                .catch((error) => done(error, undefined));
         }
     );
 
