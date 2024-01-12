@@ -15,27 +15,12 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn format:check
+      - run: yarn workspaces run build
       - run: yarn lint
+      - run: yarn format:check
       - run: yarn test
 
-  base-backend-db:
-    needs: lint-and-test
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: "npm"
-          registry-url: https://registry.npmjs.org/
-      - run: yarn
-      - run: yarn workspace @labset/platform-base-backend-db build
-      - run: yarn workspace @labset/platform-base-backend-db publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-  tools-graphql-codegen:
+  release-build-graphql-codegen:
     needs: lint-and-test
     runs-on: ubuntu-22.04
     steps:
@@ -51,7 +36,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-  base-backend-middlewares:
+  release-core-backend:
     needs: lint-and-test
     runs-on: ubuntu-22.04
     steps:
@@ -62,7 +47,39 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: yarn
-      - run: yarn workspace @labset/platform-base-backend-middlewares build
-      - run: yarn workspace @labset/platform-base-backend-middlewares publish --access public
+      - run: yarn workspace @labset/platform-core-backend build
+      - run: yarn workspace @labset/platform-core-backend publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  release-identity-backend:
+    needs: [lint-and-test,release-core-backend]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: yarn workspace @labset/platform-identity-backend build
+      - run: yarn workspace @labset/platform-identity-backend publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+  release-identity-frontend:
+    needs: lint-and-test
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+          registry-url: https://registry.npmjs.org/
+      - run: yarn
+      - run: yarn workspace @labset/platform-identity-frontend build
+      - run: yarn workspace @labset/platform-identity-frontend publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  test:
+  lint-and-test:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
