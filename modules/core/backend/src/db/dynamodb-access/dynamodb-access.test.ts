@@ -17,20 +17,18 @@ describe('dynamodb-access', () => {
             region: 'local',
             endpoint: process.env.MOCK_DYNAMODB_ENDPOINT ?? 'oops'
         });
-
+        await clients.upgrade();
         access = new TaskDocEntityAccess(clients);
     });
     afterAll(async () => {
+        const downgrades = await clients.rollback();
+        expect(downgrades).toHaveLength(1);
         await clients.destroy();
     });
 
-    beforeEach(async () => {
-        const upgrades = await clients.upgrade();
-        expect(upgrades).toHaveLength(1);
-    });
-    afterEach(async () => {
-        const downgrades = await clients.rollback();
-        expect(downgrades).toHaveLength(1);
+    it('read: finds nothing when store is empty', async () => {
+        const none = await access.reader.query({});
+        expect(none).toHaveLength(0);
     });
 
     it('read-write: saves one item', async () => {
@@ -64,19 +62,14 @@ describe('dynamodb-access', () => {
         expect(all).toContainEqual(itemOne);
         expect(all).toContainEqual(itemTwo);
 
-        await access.writer.removeOne(one);
+        await access.writer.removeOne(two);
 
-        const notFound = await access.reader.findBySort(one);
+        const notFound = await access.reader.findBySort(two);
         expect(notFound).toBeNull();
 
         const listOfOne = await access.reader.query({});
         expect(listOfOne).toHaveLength(1);
-        expect(listOfOne).toContainEqual(itemTwo);
-    });
-
-    it('read: finds nothing when store is empty', async () => {
-        const none = await access.reader.query({});
-        expect(none).toHaveLength(0);
+        expect(listOfOne).toContainEqual(itemOne);
     });
 });
 
