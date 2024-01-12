@@ -19,6 +19,11 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.490.0",
     "@aws-sdk/lib-dynamodb": "^3.490.0",
-    "@labset/platform-core-backend": "^1.0.4"
+    "@labset/platform-core-backend": "^1.0.4",
+    "luxon": "^3.4.4",
+    "uid": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.4.0"
   }
 }
