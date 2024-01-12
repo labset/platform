@@ -22,11 +22,37 @@
       groupName: "typescript-eslint monorepo",
       matchUpdateTypes: ["digest", "patch", "minor", "major"],
     },
-  ],
-  minor: {
-    bumpVersion: "minor",
-  },
-  patch: {
-    bumpVersion: "patch",
-  },
+    {
+      "matchSourceUrlPrefixes": [
+        "https://github.com/apollographql/"
+      ],
+      groupSlug: "apollo-graphql",
+      addLabels: ["graphql"],
+      commitMessagePrefix: "[graphql-upgrades]"
+    },
+    {
+      "matchPackageNames": [
+        "@types/eslint",
+        "babel-eslint"
+      ],
+      "matchPackagePrefixes": [
+        "@typescript-eslint/",
+        "eslint"
+      ],
+      groupSlug: "eslint",
+      addLabels: ["eslint"],
+      commitMessagePrefix: "[eslint-upgrades]"
+    },
+    {
+      "matchPackageNames": [
+        "@types/react"
+      ],
+      "matchPackagePrefixes": [
+        "react"
+      ],
+      groupSlug: "react",
+      addLabels: ["react"],
+      commitMessagePrefix: "[react-upgrades]"
+    }
+  ]
 }
