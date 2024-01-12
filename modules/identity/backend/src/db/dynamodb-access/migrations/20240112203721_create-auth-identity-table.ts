@@ -4,7 +4,7 @@ import { tables } from '../tables';
 
 class CreateAuthIdentityTable extends CreateTableMigration {
     constructor() {
-        super(tables.authSession);
+        super(tables.authIdentity);
     }
 }
 
