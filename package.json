@@ -10,6 +10,7 @@
     "modules/**"
   ],
   "scripts": {
+    "build": "yarn workspaces run build",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "format:check": "prettier --check .",
