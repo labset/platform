@@ -23,9 +23,15 @@ declare global {
 
 interface WithPassportAuth {
     app: Express;
-    authSessionService: IAuthSessionService<SessionData>;
-    cookieSecret: string;
-    productKey: string;
+    services: {
+        authSession: IAuthSessionService<SessionData>;
+    };
+    product: {
+        key: string;
+    };
+    secrets: {
+        cookie: string;
+    };
 }
 
 passport.serializeUser<Express.User>((user, done) => {
@@ -38,19 +44,19 @@ passport.deserializeUser<Express.User>((user, done) => {
 
 const withPassportAuth = async ({
     app,
-    authSessionService,
-    cookieSecret,
-    productKey
+    services,
+    product,
+    secrets
 }: WithPassportAuth) => {
-    const store = new AuthSessionStore(authSessionService);
+    const store = new AuthSessionStore(services.authSession);
 
     app.use(
         json(),
         urlencoded({ extended: true }),
         session({
             genid: () => uid(32),
-            name: `labset_${productKey}`,
-            secret: cookieSecret,
+            name: `labset_${product.key}`,
+            secret: secrets.cookie,
             store,
             resave: false,
             saveUninitialized: true,
