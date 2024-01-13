@@ -28,7 +28,7 @@ interface AuthIdentityAware extends DocEntity {
     authIdentitySort: string;
 }
 
-interface TenantUser extends DocEntity {
+interface Tenant extends DocEntity {
     name: string;
 }
 
@@ -52,6 +52,6 @@ export type {
     AuthSession,
     AuthIdentity,
     GoogleAuthIdentity,
-    TenantUser,
+    Tenant,
     TenantUser
 };
