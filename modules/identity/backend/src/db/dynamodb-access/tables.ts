@@ -10,6 +10,14 @@ const tables: Record<entityNames, IDocEntityTable> = {
     authIdentity: {
         name: `platform-auth-identity`,
         part: `GLOBAL`
+    },
+    tenant: {
+        name: `platform-tenant`,
+        part: `GLOBAL`
+    },
+    tenantUser: {
+        name: `platform-tenant-user`,
+        part: `GLOBAL`
     }
 };
 
