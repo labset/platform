@@ -24,5 +24,35 @@ interface GoogleAuthIdentity extends AuthIdentity {
     provider: AuthIdentityProvider.GOOGLE;
 }
 
-export { AuthIdentityProvider };
-export type { AuthSession, AuthIdentity, GoogleAuthIdentity };
+interface AuthIdentityAware extends DocEntity {
+    authIdentitySort: string;
+}
+
+interface Tenant extends DocEntity {
+    name: string;
+    settings: Record<string, unknown>;
+}
+
+interface TenantAware extends DocEntity {
+    tenantSort: string;
+}
+
+interface TenantUser extends TenantAware, AuthIdentityAware {
+    roles: Record<TenantUserRole, boolean>;
+}
+
+enum TenantUserRole {
+    OWNER = 'OWNER',
+    ADMIN = 'ADMIN',
+    USER = 'USER',
+    GUEST = 'GUEST'
+}
+
+export { AuthIdentityProvider, TenantUserRole };
+export type {
+    AuthSession,
+    AuthIdentity,
+    GoogleAuthIdentity,
+    Tenant,
+    TenantUser
+};
