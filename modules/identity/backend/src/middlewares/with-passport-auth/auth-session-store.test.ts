@@ -1,6 +1,5 @@
 import { randomUUID } from 'crypto';
 
-import express from 'express';
 import { SessionData } from 'express-session';
 import { DateTime } from 'luxon';
 
