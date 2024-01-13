@@ -63,6 +63,7 @@ jobs:
           cache: "npm"
           registry-url: https://registry.npmjs.org/
       - run: yarn
+      - run: yarn workspaces run build
       - run: yarn workspace @labset/platform-identity-backend build
       - run: yarn workspace @labset/platform-identity-backend publish --access public
         env:
