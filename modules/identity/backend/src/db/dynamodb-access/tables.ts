@@ -17,7 +17,11 @@ const tables: Record<entityNames, IDocEntityTable> = {
     },
     tenantUser: {
         name: `platform-tenant-user`,
-        part: `GLOBAL`
+        part: `GLOBAL`,
+        indexed: {
+            authIdentitySort: 'auth-identity-index',
+            tenantSort: 'tenant-index'
+        }
     }
 };
 

@@ -37,7 +37,7 @@ interface TenantAware extends DocEntity {
 }
 
 interface TenantUser extends TenantAware, AuthIdentityAware {
-    roles: Record<TenantUserRole, boolean>;
+    roles: TenantUserRole[];
 }
 
 enum TenantUserRole {

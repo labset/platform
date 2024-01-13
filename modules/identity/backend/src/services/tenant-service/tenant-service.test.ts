@@ -50,10 +50,9 @@ describe('tenant-service', () => {
         expect(created.owner.authIdentitySort).toEqual(owner.sort);
 
         const authenticated = await service.authenticateUsers({
-            profileId: ownerProfileId
+            authIdentitySort: owner.sort
         });
         expect(authenticated).toBeDefined();
-        expect(authenticated!.identity).toEqual(owner);
         expect(authenticated!.users.length).toEqual(1);
         expect(authenticated!.users[0]).toEqual(created.owner);
     });

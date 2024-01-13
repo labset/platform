@@ -12,15 +12,44 @@ import type {
 import { IDynamoDbMigration } from './migration';
 import { IDocEntityTable } from './types';
 
+const withLocalSecondaryIndexes = (
+    input: CreateTableCommandInput,
+    indexed?: Record<string, string>
+): CreateTableCommandInput => {
+    if (!indexed) return input;
+    const withIndexes: CreateTableCommandInput = {
+        ...input,
+        LocalSecondaryIndexes: []
+    };
+    console.info('**', withIndexes);
+    return Object.entries(indexed).reduce((params, [fieldName, indexName]) => {
+        params.AttributeDefinitions?.push({
+            AttributeName: fieldName,
+            AttributeType: 'S'
+        });
+        params.LocalSecondaryIndexes?.push({
+            IndexName: indexName,
+            KeySchema: [
+                { AttributeName: 'part', KeyType: 'HASH' },
+                { AttributeName: fieldName, KeyType: 'RANGE' }
+            ],
+            Projection: {
+                ProjectionType: 'ALL'
+            }
+        });
+        return params;
+    }, withIndexes);
+};
+
 class CreateTableMigration implements IDynamoDbMigration {
     readonly TableName: string;
-    constructor(table: IDocEntityTable) {
-        this.TableName = table.name;
+    constructor(private readonly table: IDocEntityTable) {
+        this.TableName = this.table.name;
     }
 
     async up(client: DynamoDBClient): Promise<TableDescription | undefined> {
         const params: CreateTableCommandInput = {
-            TableName: this.TableName,
+            TableName: this.table.name,
             AttributeDefinitions: [
                 { AttributeName: 'part', AttributeType: 'S' },
                 { AttributeName: 'sort', AttributeType: 'S' }
@@ -34,15 +63,16 @@ class CreateTableMigration implements IDynamoDbMigration {
                 WriteCapacityUnits: 5
             }
         };
+        const withIndex = withLocalSecondaryIndexes(params, this.table.indexed);
         const { TableDescription } = await client.send(
-            new CreateTableCommand(params)
+            new CreateTableCommand(withIndex)
         );
         return TableDescription;
     }
 
     async down(client: DynamoDBClient): Promise<TableDescription | undefined> {
         const params: DeleteTableCommandInput = {
-            TableName: this.TableName
+            TableName: this.table.name
         };
         const { TableDescription } = await client.send(
             new DeleteTableCommand(params)
