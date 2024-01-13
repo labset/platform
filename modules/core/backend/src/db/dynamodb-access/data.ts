@@ -19,9 +19,6 @@ class DynamoDbData implements IDynamoDbData {
                     [`${key}${DATE_SUFFIX}`]: value.toISOString()
                 };
             }
-            if (typeof value === 'object') {
-                return { ...prev, [key]: this.marshall(value) };
-            }
             return { ...prev, [key]: value };
         }, {});
     }
@@ -34,9 +31,6 @@ class DynamoDbData implements IDynamoDbData {
                     ...prev,
                     [key.slice(0, DATE_SUFFIX.length * -1)]: new Date(value)
                 };
-            }
-            if (typeof value === 'object') {
-                return { ...prev, [key]: this.unmarshall(value) };
             }
             return { ...prev, [key]: value };
         }, {});

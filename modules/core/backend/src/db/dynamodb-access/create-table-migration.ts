@@ -21,7 +21,6 @@ const withLocalSecondaryIndexes = (
         ...input,
         LocalSecondaryIndexes: []
     };
-    console.info('**', withIndexes);
     return Object.entries(indexed).reduce((params, [fieldName, indexName]) => {
         params.AttributeDefinitions?.push({
             AttributeName: fieldName,
