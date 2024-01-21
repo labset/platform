@@ -1,6 +1,6 @@
 {
   "name": "@labset/platform-build-graphql-codegen",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "Apache-2.0",
   "author": "Hasnae R. <>",
   "scripts": {
