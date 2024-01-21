@@ -1,0 +1,28 @@
+{
+  "name": "@labset/platform-core-frontend",
+  "version": "1.0.6",
+  "license": "Apache-2.0",
+  "author": "Hasnae R. <>",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "format:check": "prettier --check .",
+    "format": "prettier --check --write ."
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@apollo/client": "^3.8.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18"
+  }
+}
