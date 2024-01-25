@@ -2,29 +2,35 @@ import { DynamoDbClientConfig } from '@labset/platform-core-backend';
 import { SessionData } from 'express-session';
 
 import { identityAccess, IdentityDynamoDbClients } from '../db';
-import { AuthSessionService, IAuthSessionService } from '../services';
 import {
+    AuthSessionService,
+    IAuthSessionService,
     AuthIdentityService,
-    IAuthIdentityService
-} from '../services/auth-identity-service';
+    IAuthIdentityService,
+    ITenantService,
+    TenantService
+} from '../services';
 
 interface IdentityBootstrap {
     services: {
         authSession: IAuthSessionService<SessionData>;
         authIdentity: IAuthIdentityService;
+        tenant: ITenantService;
     };
 }
 
 const bootstrapIdentity = async (
-    options: DynamoDbClientConfig
+    options: DynamoDbClientConfig,
+    forceUpgrade: boolean = false
 ): Promise<IdentityBootstrap> => {
     const clients = new IdentityDynamoDbClients(options);
-    await clients.upgrade();
+    await clients.upgrade({ force: forceUpgrade });
     const access = identityAccess<SessionData>(clients);
     return {
         services: {
             authSession: new AuthSessionService(access),
-            authIdentity: new AuthIdentityService(access)
+            authIdentity: new AuthIdentityService(access),
+            tenant: new TenantService(access)
         }
     };
 };

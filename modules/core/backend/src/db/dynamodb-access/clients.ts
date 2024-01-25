@@ -10,7 +10,7 @@ interface IDynamoDbClients {
     ddbDoc: () => DynamoDBDocumentClient;
     ddbData: () => IDynamoDbData;
     destroy: () => Promise<void>;
-    upgrade: () => Promise<TableDescription[]>;
+    upgrade: (opts?: { force: boolean }) => Promise<TableDescription[]>;
     rollback: () => Promise<TableDescription[]>;
 }
 
@@ -70,7 +70,12 @@ class DynamoDbClients implements IDynamoDbClients {
         this.ddbInstance?.destroy();
     }
 
-    async upgrade(): Promise<TableDescription[]> {
+    async upgrade(
+        { force }: { force: boolean } = { force: false }
+    ): Promise<TableDescription[]> {
+        if (!force) {
+            return [];
+        }
         const ddbClient = this.ddb();
         const data = await ddbClient.send(new ListTablesCommand({}));
         const tableNames = data.TableNames ?? [];
