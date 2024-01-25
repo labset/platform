@@ -1,4 +1,4 @@
-name: labset-platform Lint and Test
+name: labset-platform lint-and-test
 on:
   push:
     branches:

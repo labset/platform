@@ -1,4 +1,4 @@
-name: "labset-platform Publish"
+name: labset-platform release
 
 on:
   release:
