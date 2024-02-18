@@ -17,9 +17,11 @@ describe('dynamodb-access', () => {
             region: 'local',
             endpoint: process.env.MOCK_DYNAMODB_ENDPOINT ?? 'oops'
         });
-        await clients.upgrade();
+        const upgrades = await clients.upgrade({ force: true });
+        expect(upgrades).toHaveLength(1);
         access = new TaskDocEntityAccess(clients);
     });
+
     afterAll(async () => {
         const downgrades = await clients.rollback();
         expect(downgrades).toHaveLength(1);

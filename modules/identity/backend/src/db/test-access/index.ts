@@ -7,7 +7,7 @@ const testIdentityDynamoDbClients =
             region: 'local',
             endpoint: process.env.MOCK_DYNAMODB_ENDPOINT ?? 'oops'
         });
-        await clients.upgrade();
+        await clients.upgrade({ force: true });
         return clients;
     };
 
